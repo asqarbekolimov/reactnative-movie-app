@@ -1,10 +1,21 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Dimensions, Text, View } from "react-native";
+import Carousel from "react-native-snap-carousel";
+import MovieCard from "./movie-card";
 
-const TrendingMovie = () => {
+const { width, height } = Dimensions.get("window");
+
+const TrendingMovie = ({ trending }) => {
   return (
-    <View>
-      <Text className="text-white">TrendingMovie</Text>
+    <View className="mb-5">
+      <Carousel
+        data={trending}
+        renderItem={({ item }) => <MovieCard item={item} />}
+        firstItem={1}
+        sliderWidth={width}
+        itemWidth={width * 0.5}
+        slideStyle={{ display: "flex", alignItems: "center" }}
+      />
     </View>
   );
 };
