@@ -12,12 +12,14 @@ import {
 import TrendingMovie from "../components/trending-movie";
 import UpcomingMovie from "../components/upcoming-movie";
 import TopRatedMovie from "../components/top-rated-movie";
+import Loader from "../components/loader";
 
 export default function Home({ navigation }) {
   const [trending, setTrending] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [topRatedMovie, setTopRatedMovie] = useState([]);
   const [popular, setPopular] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getTrendingMovie();
@@ -29,6 +31,7 @@ export default function Home({ navigation }) {
   const getTrendingMovie = async () => {
     const data = await fetchTrendingMovie();
     setTrending(data.results);
+    setIsLoading(false);
   };
   const getUpcomingMovie = async () => {
     const data = await fetchUpcomingMovie();
@@ -52,22 +55,28 @@ export default function Home({ navigation }) {
           <MagnifyingGlassIcon size={30} strokeWidth={2} color={"white"} />
         </View>
       </SafeAreaView>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20, paddingTop: 20 }}
-      >
-        {trending.length > 0 && <TrendingMovie trending={trending} />}
-        {upcoming.length > 0 && (
-          <UpcomingMovie upcoming={upcoming} title={"Upcoming movies"} />
-        )}
-        {popular.length > 0 && (
-          <UpcomingMovie
-            upcoming={popular.reverse()}
-            title={"Popular movies"}
-          />
-        )}
-        {topRatedMovie.length > 0 && <TrendingMovie trending={topRatedMovie} />}
-      </ScrollView>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 20, paddingTop: 20 }}
+        >
+          {trending.length > 0 && <TrendingMovie trending={trending} />}
+          {upcoming.length > 0 && (
+            <UpcomingMovie upcoming={upcoming} title={"Upcoming movies"} />
+          )}
+          {popular.length > 0 && (
+            <UpcomingMovie
+              upcoming={popular.reverse()}
+              title={"Popular movies"}
+            />
+          )}
+          {topRatedMovie.length > 0 && (
+            <TrendingMovie trending={topRatedMovie} />
+          )}
+        </ScrollView>
+      )}
     </View>
   );
 }

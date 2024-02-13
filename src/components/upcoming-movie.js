@@ -13,7 +13,7 @@ const UpcomingMovie = ({ upcoming, title }) => {
         contentContainerStyle={{ paddingHorizontal: 15 }}
       >
         {upcoming.map((item) => (
-          <View className="space-y-1 mr-4">
+          <View className="space-y-1 mr-4" key={item.id}>
             <Image
               source={{ uri: image185(item.poster_path) }}
               className="rounded-3xl"
