@@ -8,11 +8,27 @@ const upcomingMovie = `${base_url}/movie/upcoming?api_key=${api_key}`;
 const topRatedMovie = `${base_url}/movie/top_rated?api_key=${api_key}`;
 const popularMovie = `${base_url}/movie/popular?api_key=${api_key}`;
 
+const movieDetail = (id) => `${base_url}/movie/${id}?api_key=${api_key}`;
+const movieCredits = (id) =>
+  `${base_url}/movie/${id}/credits?api_key=${api_key}`;
+const similarMovie = (id) =>
+  `${base_url}/movie/${id}/similar?api_key=${api_key}`;
+
 export const fetchTrendingMovie = () => {
   return apiRequest(trendingMovie);
 };
 export const fetchPopularMovie = () => {
   return apiRequest(popularMovie);
+};
+
+export const fetchMovieDetail = (id) => {
+  return apiRequest(movieDetail(id));
+};
+export const fetchMovieCredits = (id) => {
+  return apiRequest(movieCredits(id));
+};
+export const fetchMovieSimilar = (id) => {
+  return apiRequest(similarMovie(id));
 };
 
 export const fetchUpcomingMovie = () => {
