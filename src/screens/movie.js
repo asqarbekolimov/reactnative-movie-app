@@ -80,7 +80,7 @@ export default function Movie() {
             <LinearGradient
               colors={[
                 "transparent",
-                "rgba(23, 23,23, 0.8)",
+                "rgba(23, 23, 23, 0.8)",
                 "rgba(23, 23, 23, 1)",
               ]}
               style={{ width, height: height * 0.5 }}
@@ -90,6 +90,34 @@ export default function Movie() {
             />
           </View>
         )}
+      </View>
+
+      <View className="space-y-4" style={{ marginTop: -40 }}>
+        <Text className="text-white text-center text-3xl font-bold tracking-widest">
+          {movie?.title}
+        </Text>
+        {movie?.id && (
+          <Text className="text-neutral-400 font-semibold text-base text-center">
+            {movie.status} • {movie?.release_date?.split("-")[0]} • {""}{" "}
+            {movie?.runtime} min
+          </Text>
+        )}
+
+        <View className="flex-row justify-center mx-4 space-x-2">
+          {movie?.genres?.map((gener, idx) => (
+            <Text
+              key={idx}
+              className="text-neutral-400 font-semibold text-base text-center"
+            >
+              {gener.name} {""}
+              {idx + 1 !== movie.genres.length ? "•" : null}
+            </Text>
+          ))}
+        </View>
+
+        <Text className="text-neutral-400 mx-4 tracking-wide">
+          {movie?.overview}
+        </Text>
       </View>
     </ScrollView>
   );
